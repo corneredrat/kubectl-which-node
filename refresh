@@ -13,7 +13,7 @@ echo "Removing contents in \$GOHOME"
 sudo rm -rf $GOHOME
 
 echo "Downloading packages"
-go get github.com/corneredrat/kubectl-which-node@$commitid
+go get github.com/corneredrat/kubectl-which-node/cmd@$commitid
 go mod download
 
 echo "Correcting packages"
