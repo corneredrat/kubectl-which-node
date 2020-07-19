@@ -44,6 +44,7 @@ var rootCmd = &cobra.Command{
 
 func run(command *cobra.Command, args []string) error {
 	fmt.Println(configFlags.ToRESTConfig())
+	return nil
 }
 
 // Execute adds all child commands to the root command and sets flags appropriately.
