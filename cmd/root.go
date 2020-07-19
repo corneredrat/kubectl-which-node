@@ -24,6 +24,7 @@ import (
 	homedir "github.com/mitchellh/go-homedir"
 	"github.com/spf13/viper"
 	"k8s.io/cli-runtime/pkg/genericclioptions"
+	"k8s.io/client-go/dynamic"
 	"k8s.io/klog"
 )
 
@@ -44,7 +45,7 @@ var rootCmd = &cobra.Command{
 }
 
 func run(command *cobra.Command, args []string) error {
-	
+
 	// https://godoc.org/k8s.io/cli-runtime/pkg/genericclioptions#ConfigFlags.ToRESTConfig
 	restConfig, err := configFlags.ToRESTConfig()
 	if err != nil {
