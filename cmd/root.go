@@ -31,9 +31,9 @@ var configFlags *genericclioptions.ConfigFlags
 
 // rootCmd represents the base command when called without any subcommands
 var rootCmd = &cobra.Command{
-	Use:   "kubectl-which-node",
+	Use:   "kubectl which node",
 	Short: "Displays node(s) in which the object(s) is deployed on.",
-	Example: "	kubectl which-node pod my-app\n" +
+	Example: "	kubectl which node pod my-app\n" +
 		"	kubectl which node replicaSet my-rs",
 	Args: cobra.MinimumNArgs(2),
 	RunE: run,
