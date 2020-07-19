@@ -1,11 +1,18 @@
+#!/bin/bash
+
 echo "Refreshing"
 
 export GO111MODULE=on
+
+echo "Pulling Latest commit"
+git pull -f
+echo "Getting latest commitid"
+commitid=$(git log --format="%H" -n 1)
 echo "Removing contents in \$GOHOME"
-sudo rm -rf ../go/*
+sudo rm -rf $GOHOME
 
 echo "Downloading packages"
-go get -u github.com/corneredrat/kubectl-which-node/cmd
+go get -u github.com/corneredrat/kubectl-which-node@commitid
 go mod download
 
 echo "Correcting packages"
