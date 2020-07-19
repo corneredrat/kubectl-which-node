@@ -27,7 +27,7 @@ import (
 )
 
 var cfgFile string
-var configFlags *genericclioptions.configFlags
+var configFlags *genericclioptions.ConfigFlags
 
 // rootCmd represents the base command when called without any subcommands
 var rootCmd = &cobra.Command{
@@ -35,7 +35,7 @@ var rootCmd = &cobra.Command{
 	Short: "Displays node(s) in which the object(s) is deployed on.",
 	Example: "	kubectl which-node pod my-app\n" +
 		"	kubectl which node replicaSet my-rs",
-	Args: cobra.MinimumArgs(2),
+	Args: cobra.MinimumNArgs(2),
 	RunE: run,
 	// Uncomment the following line if your bare application
 	// has an action associated with it:
