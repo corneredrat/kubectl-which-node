@@ -16,9 +16,10 @@ limitations under the License.
 package cmd
 
 import (
+	"flag"
 	"fmt"
 	"os"
-
+	"pflag"
 	"github.com/spf13/cobra"
 
 	homedir "github.com/mitchellh/go-homedir"
@@ -76,7 +77,7 @@ func init() {
 	klog.InitFlags(nil)
 	cobra.OnInitialize(initConfig)
 
-	// If not for below snippet, Cant' display -v option in kubectl 
+	// If not for below snippet, Cant' display -v option in kubectl
 	pflag.CommandLine.AddGoFlagSet(flag.CommandLine)
 	// hide all glog flags except for -v
 	flag.CommandLine.VisitAll(func(f *flag.Flag) {
