@@ -15,8 +15,12 @@ limitations under the License.
 */
 package main
 
-import "github.com/corneredrat/kubectl-which-node/cmd"
+import (
+	"github.com/corneredrat/kubectl-which-node/cmd"
+	"k8s.io/klog"
+)
 
 func main() {
+	defer klog.Flush()
 	cmd.Execute()
 }

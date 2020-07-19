@@ -24,6 +24,7 @@ import (
 	homedir "github.com/mitchellh/go-homedir"
 	"github.com/spf13/viper"
 	"k8s.io/cli-runtime/pkg/genericclioptions"
+	"k8s.io/klog"
 )
 
 var cfgFile string
@@ -43,7 +44,21 @@ var rootCmd = &cobra.Command{
 }
 
 func run(command *cobra.Command, args []string) error {
-	fmt.Println(configFlags.ToRESTConfig())
+	
+	// https://godoc.org/k8s.io/cli-runtime/pkg/genericclioptions#ConfigFlags.ToRESTConfig
+	restConfig, err = configFlags.ToRESTConfig()
+	if err != nil {
+		return err //fmt.Errorf("Could not convert config flags to rest config")
+	}
+	klog.Info("obtained restConfig")
+
+	//https://godoc.org/k8s.io/client-go/dynamic#NewForConfig
+	k8sClient, err = dynamic.NewForConfig(restConfig)
+	if err != nil {
+		return fmt.Errorf("unable to get dynamic client from Given restConfig")
+	}
+	klog.Info("obtained dynamic kubernetes client")
+
 	return nil
 }
 
@@ -57,6 +72,7 @@ func Execute() {
 }
 
 func init() {
+	klog.InitFlags(nil)
 	cobra.OnInitialize(initConfig)
 
 	// Here you will define your flags and configuration settings.
