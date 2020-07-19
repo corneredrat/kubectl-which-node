@@ -1,4 +1,4 @@
-module github.com/corneredrat/kubectl-which
+module github.com/corneredrat/kubectl-which/cmd
 
 go 1.13
 
