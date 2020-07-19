@@ -76,6 +76,15 @@ func init() {
 	klog.InitFlags(nil)
 	cobra.OnInitialize(initConfig)
 
+	// If not for below snippet, Cant' display -v option in kubectl 
+	pflag.CommandLine.AddGoFlagSet(flag.CommandLine)
+	// hide all glog flags except for -v
+	flag.CommandLine.VisitAll(func(f *flag.Flag) {
+		if f.Name != "v" {
+			pflag.Lookup(f.Name).Hidden = true
+		}
+	})
+
 	// Here you will define your flags and configuration settings.
 	// Cobra supports persistent flags, which, if defined here,
 	// will be global for your application.
