@@ -54,7 +54,7 @@ func run(command *cobra.Command, args []string) error {
 	klog.Info("obtained restConfig")
 
 	//https://godoc.org/k8s.io/client-go/dynamic#NewForConfig
-	k8sClient, err := dynamic.NewForConfig(restConfig)
+	_, err := dynamic.NewForConfig(restConfig)
 	if err != nil {
 		return fmt.Errorf("unable to get dynamic client from Given restConfig")
 	}
