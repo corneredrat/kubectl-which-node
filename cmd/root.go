@@ -19,10 +19,10 @@ import (
 	"flag"
 	"fmt"
 	"os"
-	"pflag"
-	"github.com/spf13/cobra"
 
 	homedir "github.com/mitchellh/go-homedir"
+	"github.com/spf13/cobra"
+	"github.com/spf13/pflag"
 	"github.com/spf13/viper"
 	"k8s.io/cli-runtime/pkg/genericclioptions"
 	"k8s.io/client-go/dynamic"
