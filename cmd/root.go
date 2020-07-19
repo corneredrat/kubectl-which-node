@@ -27,7 +27,7 @@ import (
 )
 
 var cfgFile string
-var configFlags string
+var configFlags *genericclioptions.configFlags
 
 // rootCmd represents the base command when called without any subcommands
 var rootCmd = &cobra.Command{
