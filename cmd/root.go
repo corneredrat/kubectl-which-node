@@ -17,28 +17,33 @@ package cmd
 
 import (
 	"fmt"
-	"github.com/spf13/cobra"
 	"os"
+
+	"github.com/spf13/cobra"
 
 	homedir "github.com/mitchellh/go-homedir"
 	"github.com/spf13/viper"
+	"k8s.io/cli-runtime/pkg/genericclioptions"
 )
 
 var cfgFile string
+var configFlags string
 
 // rootCmd represents the base command when called without any subcommands
 var rootCmd = &cobra.Command{
 	Use:   "kubectl-which-node",
-	Short: "A brief description of your application",
-	Long: `A longer description that spans multiple lines and likely contains
-examples and usage of using your application. For example:
-
-Cobra is a CLI library for Go that empowers applications.
-This application is a tool to generate the needed files
-to quickly create a Cobra application.`,
+	Short: "Displays node(s) in which the object(s) is deployed on.",
+	Example: "	kubectl which-node pod my-app\n" +
+		"	kubectl which node replicaSet my-rs",
+	Args: cobra.MinimumArgs(2),
+	RunE: run,
 	// Uncomment the following line if your bare application
 	// has an action associated with it:
 	//	Run: func(cmd *cobra.Command, args []string) { },
+}
+
+func run(cmd *cobra.Command, args []string) {
+	fmt.Println(configFlags.ToRestConfig())
 }
 
 // Execute adds all child commands to the root command and sets flags appropriately.
@@ -62,6 +67,8 @@ func init() {
 	// Cobra also supports local flags, which will only run
 	// when this action is called directly.
 	rootCmd.Flags().BoolP("toggle", "t", false, "Help message for toggle")
+	configFlags = genericclioptions.NewConfigFlags(true)
+	configFlags.AddFlags(configFlags)
 }
 
 // initConfig reads in config file and ENV variables if set.
