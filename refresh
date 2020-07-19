@@ -5,6 +5,7 @@ echo "Removing contents in \$GOHOME"
 sudo rm -rf ../go/*
 
 echo "Downloading packages"
+go get -u github.com/corneredrat/kubectl-which-node/cmd
 go mod download
 
 echo "Correcting packages"
