@@ -42,7 +42,7 @@ var rootCmd = &cobra.Command{
 	//	Run: func(cmd *cobra.Command, args []string) { },
 }
 
-func run(cmd *cobra.Command, args []string) {
+func run(command *cobra.Command, args []string) error {
 	fmt.Println(configFlags.ToRestConfig())
 }
 
