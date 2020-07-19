@@ -8,6 +8,7 @@ echo "Pulling Latest commit"
 git pull -f
 echo "Getting latest commitid"
 commitid=$(git log --format="%H" -n 1)
+echo "Latest comit : $commitid"
 echo "Removing contents in \$GOHOME"
 sudo rm -rf $GOHOME
 
