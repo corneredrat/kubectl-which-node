@@ -57,7 +57,7 @@ func run(command *cobra.Command, args []string) error {
 	//https://godoc.org/k8s.io/client-go/dynamic#NewForConfig
 	_, err = dynamic.NewForConfig(restConfig)
 	if err != nil {
-		return fmt.Errorf("unable to get dynamic client from Given restConfig")
+		return fmt.Errorf("unable to get dynamic client from Given restConfig: %w", err)
 	}
 	klog.Info("obtained dynamic kubernetes client")
 
