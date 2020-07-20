@@ -8,7 +8,7 @@ import (
 func getNameList(apiResourceLists []*v1.APIResourceList) string{
 	var names []string
 	for apiResourceList := range(apiResourceLists) {
-		for apiResource := range(apiResourceList) {
+		for apiResource := range(apiResourceList.APIResources) {
 			pluralName		:= apiResource.Name
 			singularName	:= ""
 			if apiResource.SingularName == nil {
