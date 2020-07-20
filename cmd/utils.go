@@ -11,7 +11,7 @@ func getNameList(apiResourceLists []*v1.APIResourceList) string{
 		for _, apiResource := range(apiResourceList.APIResources) {
 			pluralName		:= apiResource.Name
 			singularName	:= ""
-			if apiResource.SingularName == nil {
+			if apiResource.SingularName == "" {
 				singularName = apiResource.Kind
 			} else {
 				singularName = apiResource.SingularName
