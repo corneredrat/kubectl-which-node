@@ -4,9 +4,10 @@ import (
 	"fmt" //apiGroup, APIResourcelist
 
 	"k8s.io/klog"
+	"k8s.io/apimachinery/pkg/apis/meta/v1"
 )
 
-func findApiResources() {
+func findApiResources() apiResouceList ,error {
 	// https://godoc.org/k8s.io/client-go/discovery#DiscoveryInterface
 	apiGroup, apiResourceList, err := discoveryClient.ServerPreferredResources()
 	if err != nil {
