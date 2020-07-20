@@ -9,15 +9,13 @@ import (
 
 func findApiResources()  ([]*v1.APIResourceList ,error) {
 	// https://godoc.org/k8s.io/client-go/discovery#DiscoveryInterface
-	apiResourceList, err := discoveryClient.ServerPreferredResources()
+	apiResourceLists, err := discoveryClient.ServerPreferredResources()
 	if err != nil {
-		return apiResourceList, fmt.Errorf("unable to fetch api resource list: %w")
+		return apiResourceLists, fmt.Errorf("unable to fetch api resource list: %w")
 	}
 
-	for _, apiResource := range(apiResourceList) {
-		klog.Info(apiResource)
-	}
+	klog.Info(getNameList(apiResourceLists))
 	
-	return apiResourceList, nil
+	return apiResourceLists, nil
 }
 
