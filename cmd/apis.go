@@ -7,7 +7,7 @@ import (
 	"k8s.io/apimachinery/pkg/apis/meta/v1"
 )
 
-func findApiResources()  APIResourceList ,error {
+func findApiResources()  (APIResourceList ,error) {
 	// https://godoc.org/k8s.io/client-go/discovery#DiscoveryInterface
 	apiGroup, apiResourceList, err := discoveryClient.ServerPreferredResources()
 	if err != nil {
