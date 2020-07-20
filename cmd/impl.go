@@ -7,7 +7,7 @@ import (
 
 func findNodes(kind string, object string) error {
 
-	klog.Info("Kind:%v Object:%v", kind, object)
+	klog.Infof("Kind:%v Object:%v", kind, object)
 	klog.V(3).Info("Finding API resources")
 	_, err := findApiResources()
 	if err != nil {

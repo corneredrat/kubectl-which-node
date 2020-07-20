@@ -14,7 +14,8 @@ func findApiResources()  ([]*v1.APIResourceList ,error) {
 		return apiResourceList, fmt.Errorf("unable to fetch api resource list: %w")
 	}
 
-	klog.Info("apiResouceList: %v", apiResourceList)
+	for _, apiResource := range(Name)
+	klog.Info("%v", apiResourceList.String())
 	return apiResourceList, nil
 }
 
