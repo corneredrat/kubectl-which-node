@@ -18,7 +18,7 @@ func getNameList(apiResourceLists []*v1.APIResourceList) string{
 			}
 			names = append(names,singularName)
 			names = append(names,pluralName)
-			names = append(names,apiResource.ShortNames)
+			names = append(names,apiResource.ShortNames...)
 		}
 	}
 	return names
