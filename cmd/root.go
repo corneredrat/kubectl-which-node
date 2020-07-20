@@ -77,7 +77,8 @@ func run(command *cobra.Command, args []string) error {
 	}
 
 	kind, object := args[0], args[1]
-	if (err = findNodes(kind, object)) != nil {
+	err = findNodes(kind, object)
+	if err != nil {
 		return fmt.Errorf("Error while finding Nodes for given resources: %w", err)
 	}
 
