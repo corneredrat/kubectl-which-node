@@ -4,7 +4,7 @@ import (
 	"fmt" //apiGroup, APIResourcelist
 
 	"k8s.io/klog"
-	_ "k8s.io/apimachinery/pkg/apis/meta/v1"
+	"k8s.io/apimachinery/pkg/apis/meta/v1"
 )
 
 func findApiResources()  (APIResourceList ,error) {
