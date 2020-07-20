@@ -16,5 +16,5 @@ func findApiResources()  (APIResourceList ,error) {
 
 	klog.Info("apiResouceList: %v", apiResourceList.String())
 	return apiResourceList, nil
-	}
 }
+
