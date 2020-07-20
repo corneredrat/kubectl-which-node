@@ -76,7 +76,7 @@ func run(command *cobra.Command, args []string) error {
 		return fmt.Errorf("unable to get discovery Client: %w", err)
 	}
 
-	kind, object := args[0], args[1]
+	kind, object := ToLower(args[0]), ToLower(args[1])
 	err = findNodes(kind, object)
 	if err != nil {
 		return fmt.Errorf("Error while finding Nodes for given resources: %w", err)

@@ -9,12 +9,12 @@ func getNameList(apiResourceLists []*v1.APIResourceList) []string{
 	var names []string
 	for _, apiResourceList := range(apiResourceLists) {
 		for _, apiResource := range(apiResourceList.APIResources) {
-			pluralName		:= apiResource.Name
+			pluralName		:= ToLower(apiResource.Name)
 			singularName	:= ""
 			if apiResource.SingularName == "" {
-				singularName = apiResource.Kind
+				singularName = ToLower(apiResource.Kind)
 			} else {
-				singularName = apiResource.SingularName
+				singularName = ToLower(apiResource.SingularName)
 			}
 			names = append(names,singularName)
 			names = append(names,pluralName)
