@@ -1,6 +1,7 @@
 package cmd
 
 import (
+	"strings"
 	v1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 )
 
@@ -9,12 +10,12 @@ func getNameList(apiResourceLists []*v1.APIResourceList) []string{
 	var names []string
 	for _, apiResourceList := range(apiResourceLists) {
 		for _, apiResource := range(apiResourceList.APIResources) {
-			pluralName		:= ToLower(apiResource.Name)
+			pluralName		:= strings.ToLower(apiResource.Name)
 			singularName	:= ""
 			if apiResource.SingularName == "" {
-				singularName = ToLower(apiResource.Kind)
+				singularName = strings.ToLower(apiResource.Kind)
 			} else {
-				singularName = ToLower(apiResource.SingularName)
+				singularName = strings.ToLower(apiResource.SingularName)
 			}
 			names = append(names,singularName)
 			names = append(names,pluralName)

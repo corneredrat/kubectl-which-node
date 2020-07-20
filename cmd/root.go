@@ -19,7 +19,7 @@ import (
 	"flag"
 	"fmt"
 	"os"
-
+	"strings"
 	homedir "github.com/mitchellh/go-homedir"
 	"github.com/spf13/cobra"
 	"github.com/spf13/pflag"
@@ -76,7 +76,7 @@ func run(command *cobra.Command, args []string) error {
 		return fmt.Errorf("unable to get discovery Client: %w", err)
 	}
 
-	kind, object := ToLower(args[0]), ToLower(args[1])
+	kind, object := strings.ToLower(args[0]), strings.ToLower(args[1])
 	err = findNodes(kind, object)
 	if err != nil {
 		return fmt.Errorf("Error while finding Nodes for given resources: %w", err)
