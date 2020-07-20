@@ -29,8 +29,7 @@ func getNameList(apiResourceLists []*v1.APIResourceList) []string{
 // A small function that checks if 
 func exists(key interface{}, list ...interface{}) bool {
 	found := false
-	klog.V(3).Infof("%v",list)
-	for _, k := range(list) {
+	for _, k := range(list[0]) {
 		
 		if key == k {
 			found = true
