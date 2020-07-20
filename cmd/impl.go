@@ -12,7 +12,6 @@ func findNodes(kind string, object string) error {
 	
 	// Check available "Kinds"
 	availableResourceNames, err := findApiResourceNames()
-	klog.V(3).Info(availableResourceNames)
 	// Check if kind requests exist
 	if !exists(kind, availableResourceNames) {
 		return fmt.Errorf("kind %v is not available in the server.",kind)
