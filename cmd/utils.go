@@ -16,7 +16,7 @@ func getNameList(apiResourceLists []*v1.APIResourceList) string{
 			} else {
 				singularName = apiResource.SingularName
 			}
-			append(names,{singularName, pluralName})
+			append(names,[]string{singularName, pluralName})
 			append(names,apiResource.ShortNames)
 		}
 	}
