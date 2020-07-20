@@ -9,7 +9,7 @@ import (
 
 func findApiResources()  (v1.APIResourceList ,error) {
 	// https://godoc.org/k8s.io/client-go/discovery#DiscoveryInterface
-	apiGroup, apiResourceList, err := discoveryClient.ServerPreferredResources()
+	apiResourceList, err := discoveryClient.ServerPreferredResources()
 	if err != nil {
 		return apiResourceList, fmt.Errorf("unable to fetch api resource list: %w")
 	}
