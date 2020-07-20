@@ -24,7 +24,7 @@ import (
 	"github.com/spf13/cobra"
 	"github.com/spf13/pflag"
 	"github.com/spf13/viper"
-	"k8s.io/apimachinery/pkg/apis/meta/v1"
+	_ 	"k8s.io/apimachinery/pkg/apis/meta/v1"
 	"k8s.io/cli-runtime/pkg/genericclioptions"
 	"k8s.io/client-go/dynamic"
 	"k8s.io/client-go/discovery"
@@ -35,8 +35,8 @@ import (
 var (
 	cfgFile          string
 	configFlags      *genericclioptions.ConfigFlags
-	dynamicInterface Interface                // https://godoc.org/k8s.io/client-go/dynamic#Interface
-	discoveryClient  CachedDiscoveryInterface // https://godoc.org/k8s.io/client-go/discovery#CachedDiscoveryInterface
+	dynamicInterface dynamic.Interface                // https://godoc.org/k8s.io/client-go/dynamic#Interface
+	discoveryClient  discovery.CachedDiscoveryInterface // https://godoc.org/k8s.io/client-go/discovery#CachedDiscoveryInterface
 )
 
 // rootCmd represents the base command when called without any subcommands
