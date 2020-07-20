@@ -5,7 +5,7 @@ import (
 )
 
 
-func getNameList(apiResourceLists []*v1.APIResourceList) string{
+func getNameList(apiResourceLists []*v1.APIResourceList) []string{
 	var names []string
 	for _, apiResourceList := range(apiResourceLists) {
 		for _, apiResource := range(apiResourceList.APIResources) {
