@@ -15,7 +15,7 @@ func findApiResources()  ([]*v1.APIResourceList ,error) {
 	}
 
 	for _, apiResource := range(Name) {
-		klog.Info("%v", apiResourceList.String())
+		klog.Info("%v", apiResource.String())
 	}
 	
 	return apiResourceList, nil
