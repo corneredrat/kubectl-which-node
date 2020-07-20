@@ -26,7 +26,7 @@ func getNameList(apiResourceLists []*v1.APIResourceList) []string{
 }
 
 // A small function that checks if 
-func exists(key interface{}, []interface{}) bool {
+func exists(key interface{},list []interface{}) bool {
 	found := false
 	for _, k := range(list) {
 		
