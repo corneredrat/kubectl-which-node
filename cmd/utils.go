@@ -1,7 +1,6 @@
 package cmd
 
 import (
-	"k8s.io/klog"
 	"strings"
 	v1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 )
@@ -27,7 +26,7 @@ func getNameList(apiResourceLists []*v1.APIResourceList) []string{
 }
 
 // A small function that checks if 
-func exists(key interface{}, list ...interface{}) bool {
+func exists(key interface{}, []interface{}) bool {
 	found := false
 	for _, k := range(list[0]) {
 		
