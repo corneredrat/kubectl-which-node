@@ -7,15 +7,12 @@ import (
 	v1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 )
 
-func findApiResources()  ([]*v1.APIResourceList ,error) {
+func findApiResourceNames()  ([]*v1.APIResourceList ,error) {
 	// https://godoc.org/k8s.io/client-go/discovery#DiscoveryInterface
 	apiResourceLists, err := discoveryClient.ServerPreferredResources()
 	if err != nil {
 		return apiResourceLists, fmt.Errorf("unable to fetch api resource list: %w")
 	}
-
-	klog.Info(getNameList(apiResourceLists))
-	
-	return apiResourceLists, nil
+	return getNameList(apiResourceLists)
 }
 

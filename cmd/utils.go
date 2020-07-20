@@ -23,3 +23,13 @@ func getNameList(apiResourceLists []*v1.APIResourceList) []string{
 	}
 	return names
 }
+
+func exists(key, list) bool {
+	found := false
+	for _, k := range(list) {
+		if key == k {
+			found = true
+		}
+	}
+	return found
+}
