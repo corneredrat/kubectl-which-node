@@ -30,8 +30,12 @@ import (
 	"k8s.io/klog"
 )
 
-var cfgFile string
-var configFlags *genericclioptions.ConfigFlags
+var (
+	cfgFile          string
+	configFlags      *genericclioptions.ConfigFlags
+	dynamicInterface Interface                // https://godoc.org/k8s.io/client-go/dynamic#Interface
+	discoveryClient  CachedDiscoveryInterface // https://godoc.org/k8s.io/client-go/discovery#CachedDiscoveryInterface
+)
 
 // rootCmd represents the base command when called without any subcommands
 var rootCmd = &cobra.Command{
@@ -48,19 +52,30 @@ var rootCmd = &cobra.Command{
 
 func run(command *cobra.Command, args []string) error {
 
-	// https://godoc.org/k8s.io/cli-runtime/pkg/genericclioptions#ConfigFlags.ToRESTConfig
+	//https://godoc.org/k8s.io/cli-runtime/pkg/genericclioptions#ConfigFlags.ToRESTConfig
 	restConfig, err := configFlags.ToRESTConfig()
 	if err != nil {
 		return err //fmt.Errorf("Could not convert config flags to rest config")
 	}
-	klog.Info("obtained restConfig")
+	klog.V(2).Info("obtained restConfig")
 
 	//https://godoc.org/k8s.io/client-go/dynamic#NewForConfig
-	_, err = dynamic.NewForConfig(restConfig)
+	// Used get Resource Interface for Objects
+	dynamicInterface, err = dynamic.NewForConfig(restConfig)
 	if err != nil {
-		return fmt.Errorf("unable to get dynamic client from Given restConfig: %w", err)
+		return fmt.Errorf("unable to get dynamic interface from Given restConfig: %w", err)
 	}
-	klog.Info("obtained dynamic kubernetes client")
+	klog.V(2).Info("obtained dynamic kubernetes client")
+
+	//https://godoc.org/k8s.io/cli-runtime/pkg/genericclioptions#ConfigFlags.ToDiscoveryClient
+	// Used to query api resources
+	discoveryClient, err = configFlags.ToDiscoveryClient()
+	if err != nil {
+		return fmt.Errorf("unable to get discovery Client: %w", err)
+	}
+
+	kind, object := args[0], args[1]
+	findNodes(kind, object)
 
 	return nil
 }
