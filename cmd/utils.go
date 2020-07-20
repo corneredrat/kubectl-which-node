@@ -4,7 +4,7 @@ import (
 	v1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 )
 
-
+// Get names of all available api resources in the kubernetes server
 func getNameList(apiResourceLists []*v1.APIResourceList) []string{
 	var names []string
 	for _, apiResourceList := range(apiResourceLists) {
@@ -24,7 +24,8 @@ func getNameList(apiResourceLists []*v1.APIResourceList) []string{
 	return names
 }
 
-func exists(key, list) bool {
+// A small function that checks if 
+func exists(key interface{}, list []interface{}) bool {
 	found := false
 	for _, k := range(list) {
 		if key == k {

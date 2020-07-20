@@ -7,12 +7,13 @@ import (
 	v1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 )
 
-func findApiResourceNames()  ([]*v1.APIResourceList ,error) {
+func findApiResourceNames()  ([]string ,error) {
 	// https://godoc.org/k8s.io/client-go/discovery#DiscoveryInterface
+	klog.V(3).Info("fetching Resources lists from Kubernetes server")
 	apiResourceLists, err := discoveryClient.ServerPreferredResources()
 	if err != nil {
-		return apiResourceLists, fmt.Errorf("unable to fetch api resource list: %w")
+		return []string{}, fmt.Errorf("unable to fetch api resource list: %w")
 	}
-	return getNameList(apiResourceLists)
+	return getNameList(apiResourceLists), nil
 }
 
