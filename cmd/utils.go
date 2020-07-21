@@ -16,7 +16,7 @@ func getResourceFromList(name string, apiResourceLists []*v1.APIResourceList) []
 		for _, apiResourceElement := range(apiResourceList.APIResources) {
 			pluralName		:= strings.ToLower(apiResourceElement.Name)
 			singularName	:= ""
-			if apiResource.SingularName == "" {
+			if apiResourceElement.SingularName == "" {
 				singularName = strings.ToLower(apiResourceElement.Kind)
 			} else {
 				singularName = strings.ToLower(apiResourceElement.SingularName)
@@ -60,7 +60,7 @@ func getNamespace() string {
 	return defaultNamespace
 }
 
-func getGroupVersion(resource *v1.APIResourceList) string {
+func getGroupVersion(resource v1.APIResourceList) string {
 	if resource.GroupVersion == "v1" {
 		return "core"
 	} else {
@@ -70,7 +70,7 @@ func getGroupVersion(resource *v1.APIResourceList) string {
 	
 }
 
-func  getAPIVersion(resource *v1.APIResourceList) string {
+func  getAPIVersion(resource v1.APIResourceList) string {
 	if resource.GroupVersion == "v1" {
 		return "v1"
 	} else {

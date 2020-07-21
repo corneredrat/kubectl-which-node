@@ -5,6 +5,7 @@ import (
 
 	"k8s.io/klog"
 	_ "k8s.io/apimachinery/pkg/apis/meta/v1"
+	"k8s.io/apimachinery/pkg/runtime/schema"
 )
 
 func findApiResource(name string) ([]apiResource ,error) {
@@ -22,7 +23,7 @@ func findApiResource(name string) ([]apiResource ,error) {
 	resources = getResourceFromList(name, apiResourceLists)
 	
 	if len(resources) > 1 {
-		var groups []string
+		var groups []schema.GroupVersion
 		for _, resource := range(resources) {
 			group 	:= resource.groupVersion()
 			groups 	:= append(groups, group)

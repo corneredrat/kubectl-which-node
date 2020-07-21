@@ -16,7 +16,7 @@ type apiResource struct {
 func (r *apiResource) groupVersion() schema.GroupVersion {
 	var groupVersion schema.GroupVersion
 	groupVersion.Group 		= r.group
-	groupVersion.Version 	= r.version
+	groupVersion.Version 	= r.apiVersion
 	return  groupVersion
 }
 
