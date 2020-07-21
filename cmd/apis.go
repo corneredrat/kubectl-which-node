@@ -47,7 +47,7 @@ func disAmbiguate(resources []apiResource) []apiResource {
 	name = strings.ToLower(name) 
 	switch(name) {
 	case "replicasets": for _,resource := range(resources) {
-		klog.V(3).Infof("DISAMBIGUATION: comparing: %v, %v",resource.getGroupVersion(), apps )
+		klog.V(3).Infof("DISAMBIGUATION: comparing: %v, apps",resource.getGroupVersion(),  )
 		if resource.getGroupVersion() ==  "apps" {
 			return append(unAmbigousResources,resource)
 		}
