@@ -25,8 +25,8 @@ func  (r *apiResource) getGroupVersion() string {
 func makeAPIResource(resourceList v1.APIResourceList,resource v1.APIResource) apiResource {
 	var apiResourceElement apiResource
 	apiResourceElement.resource = resource
-	apiResourceElement.group	= resourceList.getGroupVersion()
-	apiResourceElement.version	= resourceList.getAPIVersion()
+	apiResourceElement.group	= getGroupVersion(resourceList)
+	apiResourceElement.version	= getAPIVersion(resourceList)
 	apiResourceElement.name		= resource.Name
 } 
 
