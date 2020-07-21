@@ -60,7 +60,7 @@ func getNamespace() string {
 	return defaultNamespace
 }
 
-func getGroupVersion(resource v1.APIResourceList) string {
+func getGroupVersionFromMetadata(resource v1.APIResourceList) string {
 	if resource.GroupVersion == "v1" {
 		return "core"
 	} else {
@@ -70,7 +70,7 @@ func getGroupVersion(resource v1.APIResourceList) string {
 	
 }
 
-func  getAPIVersion(resource v1.APIResourceList) string {
+func  getAPIVersionFromMetadata(resource v1.APIResourceList) string {
 	if resource.GroupVersion == "v1" {
 		return "v1"
 	} else {
