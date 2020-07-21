@@ -2,7 +2,7 @@ package cmd
 
 import (
 	"fmt" //apiGroup, APIResourcelist
-	"string"
+	"strings"
 	"k8s.io/klog"
 	_ "k8s.io/apimachinery/pkg/apis/meta/v1"
 	"k8s.io/apimachinery/pkg/runtime/schema"
