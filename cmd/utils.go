@@ -26,6 +26,7 @@ func getResourceFromList(name string, apiResourceLists []*v1.APIResourceList) []
 			names = append(names,apiResourceElement.ShortNames...)
 
 			if stringExists(name, names) {
+				klog.V(3).Infof("found match name:%v, range:%v",name,names)
 				resource := makeAPIResource(apiResourceList, apiResourceElement) //types.go
 				r 		 = append(r, resource )
 			}
@@ -79,3 +80,4 @@ func  getAPIVersionFromMetadata(resource v1.APIResourceList) string {
 	}
 	
 }
+
