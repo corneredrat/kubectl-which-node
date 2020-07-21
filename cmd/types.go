@@ -13,7 +13,7 @@ type apiResource struct {
 }
 
 // https://godoc.org/k8s.io/apimachinery/pkg/runtime/schema#GroupVersion
-func groupVersion() schema.GroupVersion {
+func getGroupVersion(r apiResource) schema.GroupVersion {
 	var groupVersion schema.GroupVersion
 	groupVersion.Group 		= r.group
 	groupVersion.Version 	= r.version
