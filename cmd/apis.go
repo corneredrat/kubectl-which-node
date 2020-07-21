@@ -7,7 +7,7 @@ import (
 	_ "k8s.io/apimachinery/pkg/apis/meta/v1"
 )
 
-func findApiResource(type string)  ([]apiResource ,error) {
+func findApiResource(name string) ([]apiResource ,error) {
 	
 	var resources []apiResource//types.go
 	
@@ -19,7 +19,7 @@ func findApiResource(type string)  ([]apiResource ,error) {
 	}
 	
 	// Get matching API Resource from the given name
-	resources := getResourceFromList(type, apiResourceLists)
+	resources := getResourceFromList(name, apiResourceLists)
 	
 	if len(resources) > 1 {
 		var groups []string
@@ -29,7 +29,7 @@ func findApiResource(type string)  ([]apiResource ,error) {
 		return resources, fmt.Errorf("multiple matches found for %v, matching groups: %v . Please diambiguate the kind name.", name, group) 
 	}
 	if len(resources) == 0 {
-		return resources, fmt.Errorf("no matches found for kind %v", type)
+		return resources, fmt.Errorf("no matches found for kind %v", name)
 	}
 	return resources, nil
 }
