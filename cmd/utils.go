@@ -11,9 +11,10 @@ func getResourceFromList(name string, apiResourceLists []*v1.APIResourceList) []
 	var r     []apiResource
 	
 	for _, apiResourceList := range(apiResourceLists) {
-		var names []string
+		
 		klog.V(4).Infof("parsing over resource list: group - %v, version - %v",apiResourceList.GroupVersion,apiResourceList.APIVersion)
 		for _, apiResourceElement := range(apiResourceList.APIResources) {
+			var names []string
 			pluralName		:= strings.ToLower(apiResourceElement.Name)
 			singularName	:= ""
 			if apiResourceElement.SingularName == "" {
