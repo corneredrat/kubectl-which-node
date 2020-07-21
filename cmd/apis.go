@@ -46,27 +46,27 @@ func disAmbiguate(resources []apiResource) []apiResource {
 	name := resources[0].getName()
 	name = strings.ToLower(name) 
 	switch(name) {
-	case "replicasets": for resource := range(resources) {
+	case "replicasets": for _,resource := range(resources) {
 		if resource.getGroupVersion() ==  "apps" {
 			return append(unAmbigousResources,resource)
 		}
 	}
-	case "deployments": for resource := range(resources) {
+	case "deployments": for _,resource := range(resources) {
 		if resource.getGroupVersion() ==  "apps" {
 			return append(unAmbigousResources,resource)
 		}
 	}
-	case "daemonsets": for resource := range(resources) {
+	case "daemonsets": for _,resource := range(resources) {
 		if resource.getGroupVersion() ==  "apps" {
 			return append(unAmbigousResources,resource)
 		}
 	}
-	case "statefulsets": for resource := range(resources) {
+	case "statefulsets": for _,resource := range(resources) {
 		if resource.getGroupVersion() ==  "apps" {
 			return append(unAmbigousResources,resource)
 		}
 	}
-	case "jobs": for resource := range(resources) {
+	case "jobs": for _,resource := range(resources) {
 		if resource.getGroupVersion() ==  "batch" {
 			return append(unAmbigousResources,resource)
 		}
