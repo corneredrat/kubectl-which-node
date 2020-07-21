@@ -2,6 +2,7 @@ package cmd
 
 import (
 	"k8s.io/apimachinery/pkg/apis/meta/v1"
+	"k8s.io/apimachinery/pkg/runtime/schema"
 )
 
 type apiResource struct {
@@ -12,14 +13,11 @@ type apiResource struct {
 }
 
 // https://godoc.org/k8s.io/apimachinery/pkg/runtime/schema#GroupVersion
-func  (r *apiResource) getGroupVersion() *struct {
-	return  struct{
-		Group   string
-		Version string
-	} {
-		Group: 		r.group,
-		Version:	r.apiVersion,
-	}
+func  (r *apiResource) getGroupVersion() GroupVersion {
+	var groupVersion GroupVersion
+	groupVersion.Group 		= r.group
+	groupVersion.Version 	= r.version
+	return  groupVersion
 }
 
 func makeAPIResource(resourceList v1.APIResourceList,resource v1.APIResource) apiResource {
