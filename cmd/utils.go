@@ -75,7 +75,7 @@ func  getAPIVersionFromMetadata(resource v1.APIResourceList) string {
 		return "v1"
 	} else {
 		groupAPIVersion := resource.GroupVersion
-		return string.Split(groupAPIVersion, "/")[0]
+		return strings.Split(groupAPIVersion, "/")[0]
 	}
 	
 }
