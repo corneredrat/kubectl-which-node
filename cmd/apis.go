@@ -7,13 +7,30 @@ import (
 	_ "k8s.io/apimachinery/pkg/apis/meta/v1"
 )
 
-func findApiResourceNames()  ([]string ,error) {
+func findApiResource(type string)  ([]apiResource ,error) {
+	
+	var resources []apiResource//types.go
+	
 	//https://godoc.org/k8s.io/client-go/discovery#CachedDiscoveryInterface
 	klog.V(3).Info("fetching Resources lists from Kubernetes server")
 	apiResourceLists, err := discoveryClient.ServerPreferredResources()
 	if err != nil {
-		return []string{}, fmt.Errorf("unable to fetch api resource list: %w")
+		return resources, fmt.Errorf("unable to fetch api resource list: %w")
 	}
-	return getNameList(apiResourceLists), nil
+	
+	// Get matching API Resource from the given name
+	resources := getResourceFromList(type, apiResourceLists)
+	
+	if len(resources) > 1 {
+		var groups []string
+		for resource := range(resources) {
+			groups := append(groups, resource.getGroupVersion())
+		}
+		return resources, fmt.Errorf("multiple matches found for %v, matching groups: %v . Please diambiguate the kind name.", name, group) 
+	}
+	if len(resources) == 0 {
+		return resources, fmt.Errorf("no matches found for kind %v", type)
+	}
+	return resources, nil
 }
 

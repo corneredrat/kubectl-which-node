@@ -7,24 +7,31 @@ import (
 )
 
 // Get names of all available api resources in the kubernetes server
-func getNameList(apiResourceLists []*v1.APIResourceList) []string{
-	var names []string
+func getResourceFromList(name string, apiResourceLists []*v1.APIResourceList) []apiResource{
+	var r     []apiResource
+	
 	for _, apiResourceList := range(apiResourceLists) {
+		var names []string
 		klog.V(4).Infof("parsing over resource list: group - %v, version - %v",apiResourceList.GroupVersion,apiResourceList.APIVersion)
-		for _, apiResource := range(apiResourceList.APIResources) {
-			pluralName		:= strings.ToLower(apiResource.Name)
+		for _, apiResourceElement := range(apiResourceList.APIResources) {
+			pluralName		:= strings.ToLower(apiResourceElement.Name)
 			singularName	:= ""
 			if apiResource.SingularName == "" {
-				singularName = strings.ToLower(apiResource.Kind)
+				singularName = strings.ToLower(apiResourceElement.Kind)
 			} else {
-				singularName = strings.ToLower(apiResource.SingularName)
+				singularName = strings.ToLower(apiResourceElement.SingularName)
 			}
 			names = append(names,singularName)
 			names = append(names,pluralName)
-			names = append(names,apiResource.ShortNames...)
+			names = append(names,apiResourceElement.ShortNames...)
+
+			if stringExists(name, names) {
+				resource := makeAPIResource(apiResourceList, apiResourceElement) //types.go
+				r 		 = append(r, resource )
+			}
 		}
 	}
-	return names
+	return r
 }
 
 // A small function that checks if 
@@ -51,4 +58,24 @@ func getNamespace() string {
 		defaultNamespace = "default"
 	}
 	return defaultNamespace
+}
+
+func resource *v1.APIResourceList getGroupVersion() string {
+	if resource.GroupVersion == "v1" {
+		return "core"
+	} else {
+		groupAPIVersion := resource.GroupVersion
+		return string.Split(groupAPIVersion, "/")[1]
+	}
+	
+}
+
+func resource *v1.APIResourceList getAPIVersion() string {
+	if resource.GroupVersion == "v1" {
+		return "v1"
+	} else {
+		groupAPIVersion := resource.GroupVersion
+		return string.Split(groupAPIVersion, "/")[0]
+	}
+	
 }
