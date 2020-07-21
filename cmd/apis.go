@@ -8,7 +8,7 @@ import (
 )
 
 func findApiResourceNames()  ([]string ,error) {
-	// https://godoc.org/k8s.io/client-go/discovery#DiscoveryInterface
+	//https://godoc.org/k8s.io/client-go/discovery#CachedDiscoveryInterface
 	klog.V(3).Info("fetching Resources lists from Kubernetes server")
 	apiResourceLists, err := discoveryClient.ServerPreferredResources()
 	if err != nil {

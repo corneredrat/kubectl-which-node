@@ -2,6 +2,7 @@ package cmd
 
 import (
 	"strings"
+	"k8s.io/klog"
 	v1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 )
 
@@ -9,6 +10,7 @@ import (
 func getNameList(apiResourceLists []*v1.APIResourceList) []string{
 	var names []string
 	for _, apiResourceList := range(apiResourceLists) {
+		klog.V(4).Infof("parsing over resource list: group - %v, version - %v",apiResourceList.GroupVersion,apiResourceList.APIVersion)
 		for _, apiResource := range(apiResourceList.APIResources) {
 			pluralName		:= strings.ToLower(apiResource.Name)
 			singularName	:= ""
@@ -35,4 +37,18 @@ func stringExists(key string,list []string) bool {
 		}
 	}
 	return found
+}
+
+// Get namespace
+// Shamelessly stolen from https://github.com/ahmetb/kubectl-tree/blob/master/cmd/kubectl-tree/namespace.go
+func getNamespace() string {
+	if v := *configFlags.Namespace; v != "" {
+		return v
+	}
+	clientConfig := configFlags.ToRawKubeConfigLoader()
+	defaultNamespace, _, err := clientConfig.Namespace()
+	if err != nil {
+		defaultNamespace = "default"
+	}
+	return defaultNamespace
 }
