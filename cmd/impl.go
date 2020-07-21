@@ -17,6 +17,6 @@ func findNodes(kind string, object string) error {
 		return fmt.Errorf("Could not find API resources: %w",err)
 	}
 	klog.V(3).Infof("found kind %v",kind)
-
+	klog.Info(apiResources)
 	return nil
 }

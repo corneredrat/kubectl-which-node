@@ -21,12 +21,12 @@ func findApiResource(name string) ([]apiResource ,error) {
 	
 	// Get matching API Resource from the given name
 	resources = getResourceFromList(name, apiResourceLists)
-	
+
 	if len(resources) > 1 {
 		var groups []schema.GroupVersion
 		for _, resource := range(resources) {
 			group 	:= resource.groupVersion()
-			groups 	:= append(groups, group)
+			groups 	= append(groups, group)
 		}
 		return resources, fmt.Errorf("multiple matches found for %v, matching groups: %v . Please diambiguate the kind name.", name, groups) 
 	}
