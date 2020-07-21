@@ -23,8 +23,6 @@ func findApiResource(name string) ([]apiResource ,error) {
 	resources = getResourceFromList(name, apiResourceLists)
 	klog.V(3).Info(resources)
 	if len(resources) > 1 {
-		resources, err := disAmbiguate(resources)
-		if err 
 		var groups []schema.GroupVersion
 		for _, resource := range(resources) {
 			group 	:= resource.groupVersion()
@@ -38,6 +36,3 @@ func findApiResource(name string) ([]apiResource ,error) {
 	return resources, nil
 }
 
-func disAmbiguate() {
-
-}
