@@ -65,7 +65,7 @@ func getGroupVersion(resource *v1.APIResourceList) string {
 		return "core"
 	} else {
 		groupAPIVersion := resource.GroupVersion
-		return string.Split(groupAPIVersion, "/")[1]
+		return strings.Split(groupAPIVersion, "/")[1]
 	}
 	
 }
