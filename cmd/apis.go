@@ -72,4 +72,5 @@ func disAmbiguate(resources []apiResource) []apiResource {
 		}
 	}
 	}
+	return resoures
 }
