@@ -11,7 +11,7 @@ func findNodes(kind string, object string) error {
 	klog.V(3).Info("finding API resources")
 	
 	// Check available "Kinds"
-	apiResources, err := findApiResourceType(kind)
+	apiResources, err := findApiResource(kind)
 	// Check if kind requests exist
     if err != nil {
 		return fmt.Errorf("Could not find API resources: %w",err)

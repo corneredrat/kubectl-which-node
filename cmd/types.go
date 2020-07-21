@@ -12,7 +12,7 @@ type apiResource struct {
 }
 
 // https://godoc.org/k8s.io/apimachinery/pkg/runtime/schema#GroupVersion
-func  (r *apiResource) getGroupVersion() string {
+func  (r *apiResource) getGroupVersion() struct {Group string, Version string}  {
 	return  struct{
 		Group   string
 		Version string

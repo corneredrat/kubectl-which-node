@@ -26,7 +26,7 @@ func findApiResource(name string) ([]apiResource ,error) {
 		for _, resource := range(resources) {
 			groups := append(groups, getGroupVersion(resource))
 		}
-		return resources, fmt.Errorf("multiple matches found for %v, matching groups: %v . Please diambiguate the kind name.", name, group) 
+		return resources, fmt.Errorf("multiple matches found for %v, matching groups: %v . Please diambiguate the kind name.", name, groups) 
 	}
 	if len(resources) == 0 {
 		return resources, fmt.Errorf("no matches found for kind %v", name)
