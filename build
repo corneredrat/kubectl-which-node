@@ -34,9 +34,8 @@ if [ $? != 0 ]; then
   echo "Build failed, exiting."
   echo "contact raghunandankst@gmail.com for support."
   exit
-else
+fi
 
 echo "Installing"
 sudo mv main /usr/bin/kubectl-which-node
 echo "...Done."
-
