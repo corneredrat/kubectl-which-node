@@ -21,7 +21,7 @@ func findApiResource(name string) ([]apiResource ,error) {
 	
 	// Get matching API Resource from the given name
 	resources = getResourceFromList(name, apiResourceLists)
-
+	klog.Info(resources)
 	if len(resources) > 1 {
 		var groups []schema.GroupVersion
 		for _, resource := range(resources) {
