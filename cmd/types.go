@@ -17,17 +17,17 @@ func  (r *apiResource) getGroupVersion() string {
 		Group   string
 		Version string
 	} {
-		Group: 		r.group
-		Version:	r.apiVersion
+		Group: 		r.group,
+		Version:	r.apiVersion,
 	}
 }
 
 func makeAPIResource(resourceList v1.APIResourceList,resource v1.APIResource) apiResource {
 	var apiResourceElement apiResource
-	apiResourceElement.resource := resource
-	apiResourceElement.group	:= resourceList.getGroupVersion()
-	apiResourceElement.version	:= resourceList.getAPIVersion()
-	apiResourceElement.name		:= resource.Name
+	apiResourceElement.resource = resource
+	apiResourceElement.group	= resourceList.getGroupVersion()
+	apiResourceElement.version	= resourceList.getAPIVersion()
+	apiResourceElement.name		= resource.Name
 } 
 
 func  (r *apiResource) getGroupVersion() string {

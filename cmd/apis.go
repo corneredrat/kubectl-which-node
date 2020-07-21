@@ -19,7 +19,7 @@ func findApiResource(name string) ([]apiResource ,error) {
 	}
 	
 	// Get matching API Resource from the given name
-	resources := getResourceFromList(name, apiResourceLists)
+	resources = getResourceFromList(name, apiResourceLists)
 	
 	if len(resources) > 1 {
 		var groups []string
