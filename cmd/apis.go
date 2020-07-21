@@ -24,7 +24,7 @@ func findApiResource(name string) ([]apiResource ,error) {
 	if len(resources) > 1 {
 		var groups []string
 		for resource := range(resources) {
-			groups := append(groups, resource.getGroupVersion())
+			groups := append(groups, getGroupVersion(resource))
 		}
 		return resources, fmt.Errorf("multiple matches found for %v, matching groups: %v . Please diambiguate the kind name.", name, group) 
 	}
