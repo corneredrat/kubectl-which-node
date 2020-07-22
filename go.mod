@@ -9,4 +9,5 @@ require (
 	github.com/spf13/viper v1.3.2
 	k8s.io/apimachinery v0.18.6 // indirect
 	k8s.io/cli-runtime v0.17.0
+	k8s.io/client-go@v0.17.0
 )
