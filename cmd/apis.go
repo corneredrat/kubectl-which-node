@@ -47,28 +47,28 @@ func disAmbiguate(resources []apiResource) []apiResource {
 	name = strings.ToLower(name) 
 	switch(name) {
 	case "replicasets": for _,resource := range(resources) {
-		klog.V(3).Infof("DISAMBIGUATION: comparing: %v, apps",resource.getGroupVersion(),  )
-		if resource.getGroupVersion() ==  "apps" {
+		klog.V(3).Infof("DISAMBIGUATION: comparing: %v, apps",resource.getAPIVersion(),  )
+		if resource.getAPIVersion() ==  "apps" {
 			return append(unAmbigousResources,resource)
 		}
 	}
 	case "deployments": for _,resource := range(resources) {
-		if resource.getGroupVersion() ==  "apps" {
+		if resource.getAPIVersion() ==  "apps" {
 			return append(unAmbigousResources,resource)
 		}
 	}
 	case "daemonsets": for _,resource := range(resources) {
-		if resource.getGroupVersion() ==  "apps" {
+		if resource.getAPIVersion() ==  "apps" {
 			return append(unAmbigousResources,resource)
 		}
 	}
 	case "statefulsets": for _,resource := range(resources) {
-		if resource.getGroupVersion() ==  "apps" {
+		if resource.getAPIVersion() ==  "apps" {
 			return append(unAmbigousResources,resource)
 		}
 	}
 	case "jobs": for _,resource := range(resources) {
-		if resource.getGroupVersion() ==  "batch" {
+		if resource.getAPIVersion() ==  "batch" {
 			return append(unAmbigousResources,resource)
 		}
 	}
