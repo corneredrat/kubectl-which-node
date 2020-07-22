@@ -13,23 +13,10 @@ commitid=$(git log --format="%H" -n 1)
 echo "Latest comit : $commitid"
 
 echo "Downloading packages"
-go get -u github.com/corneredrat/kubectl-which-node/cmd
-go mod download
-
-echo "Correcting packages"
-sudo rm -rf $GOPATH/pkg/mod/k8s.io/cli-runtime@v0.18.5
-go get k8s.io/cli-runtime@v0.17.0
-sudo rm -rf $GOPATH/pkg/mod/github.com/googleapis/gnostic@v0.4.2
-go get github.com/googleapis/gnostic@v0.3.0
-sudo rm -rf $GOPATH/pkg/mod/k8s.io/client-go@v11.0.0+incompatible
-go get k8s.io/client-go@v0.17.0
-sudo rm -rf  $GOPATH/pkg/mod/k8s.io/apimachinery@v0.18.5
-go get k8s.io/apimachinery@v0.17.0
-sudo rm -rf  $GOPATH/pkg/mod/k8s.io/api@v0.18.5
-go get k8s.io/api@v0.17.0
+go mod vendor
 
 echo "Building binary"
-go build main.go
+go build -mod=vendor -v main.go
 if [ $? != 0 ]; then
   echo "Build failed, exiting."
   echo "contact raghunandankst@gmail.com for support."
