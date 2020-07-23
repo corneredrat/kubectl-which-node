@@ -48,7 +48,7 @@ func findObjectResource( resource apiResource, objectName string) (*unstructured
 		//https://godoc.org/k8s.io/client-go/dynamic#Interface
 		//https://godoc.org/k8s.io/client-go/dynamic#NamespaceableResourceInterface
 		namespace := getNamespace()
-		klog.V(1).Infof("namespace: ", namespace)
+		klog.V(1).Infof("namespace: %v", namespace)
 		resourceInterface := dynamicInterface.Resource(resource.groupVersionResource()).Namespace(namespace)
 		//https://godoc.org/k8s.io/client-go/dynamic#ResourceInterface
 		object, err := resourceInterface.Get(objectName, v1.GetOptions{})
