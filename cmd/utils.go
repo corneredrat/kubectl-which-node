@@ -28,7 +28,7 @@ func getResourceFromList(name string, apiResourceLists []*v1.APIResourceList) []
 
 			if stringExists(name, names) {
 				klog.V(3).Infof("found match name:%v, range:%v",name,names)
-				resource := makeAPIResource(apiResourceList, apiResourceElement) //types.go
+				resource := makeAPIResource(apiResourceList, apiResourceElement)
 				r 		 = append(r, resource )
 			}
 		}

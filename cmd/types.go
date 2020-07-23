@@ -29,15 +29,6 @@ func (r *apiResource) groupVersionResource() schema.GroupVersionResource {
 	return  groupVersionResource
 }
 
-func makeAPIResource(resourceList *v1.APIResourceList, resource v1.APIResource) apiResource {
-	var apiResourceElement apiResource
-	apiResourceElement.resource = resource
-	apiResourceElement.group	= getGroupVersionFromMetadata(*resourceList)		// utils.go
-	apiResourceElement.apiVersion	= getAPIVersionFromMetadata(*resourceList)		// utils.go
-	apiResourceElement.name		= resource.Name
-	return apiResourceElement
-} 
-
 func  (r *apiResource) getGroupVersion() string {
 	return  r.group
 }
