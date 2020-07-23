@@ -55,8 +55,6 @@ func findObjectResource( resources []apiResource, objectName string) (*unstructu
 		//https://godoc.org/k8s.io/client-go/dynamic#NamespaceableResourceInterface
 		namespace 	:= getNamespace()
 		objectFound := false
-		var err error
-		var object *unstructured.Unstructured
 		for _, resource := range(resources) {
 			groupVersionResource 	:= resource.groupVersionResource()
 			resourceInterface 		:= dynamicInterface.Resource(resource.groupVersionResource()).Namespace(namespace)
@@ -69,15 +67,15 @@ func findObjectResource( resources []apiResource, objectName string) (*unstructu
 				continue
 			} else {
 				klog.V(3).Infof("found resource!")
+				return object, nil
 			}
-			objectFound = true
 		}
 		//https://godoc.org/k8s.io/client-go/dynamic#ResourceInterface
 		if !objectFound {
 			return object, fmt.Errorf("unable to find %v in any of api/group version")
 		}
-		klog.V(3).Infof("successfully obtained object: %v", object)
-		return object, nil
+		klog.V(3).Infof("successfully obtained object: %v", *unstructured.Unstructured{})
+		return *unstructured.Unstructured{}, nil
 }
 
 func disAmbiguate(resources []apiResource) []apiResource {
