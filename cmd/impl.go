@@ -20,7 +20,7 @@ func findNodes(kind string, object string) error {
 	return nil
 
 	// get resource
-	resource := dynamicInterface(apiResources[0].groupVersionResource()).Namespace(getNamespace())
+	resource := dynamicInterface.Resource(apiResources[0].groupVersionResource()).Namespace(getNamespace())
 	klog.V(3).Infof("resource: %v",resource)
 	
 }

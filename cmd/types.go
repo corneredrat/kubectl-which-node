@@ -25,7 +25,7 @@ func (r *apiResource) groupVersionResource() schema.GroupVersion {
 	var groupVersionResource schema.GroupVersionResource
 	groupVersionResource.Group 		= r.group
 	groupVersionResource.Version 	= r.apiVersion
-	groupVersionResource.Resource	= r.resource
+	groupVersionResource.Resource	= r.name
 	return  groupVersionResource
 }
 
