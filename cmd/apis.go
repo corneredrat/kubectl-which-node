@@ -42,7 +42,7 @@ func findApiResource(name string) ([]apiResource ,error) {
 	return resources, nil
 }
 
-func findObjectResource( resource apiResource, objectName string) (unstructured.Unstructured, error) {
+func findObjectResource( resource apiResource, objectName string) (*unstructured.Unstructured, error) {
 		// get resource
 
 		//https://godoc.org/k8s.io/client-go/dynamic#Interface
