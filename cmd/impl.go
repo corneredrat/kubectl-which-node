@@ -3,7 +3,7 @@ package cmd
 import (
 	"k8s.io/klog"
 	"fmt"
-	"k8s.io/apimachinery/pkg/apis/meta/v1"
+	_ "k8s.io/apimachinery/pkg/apis/meta/v1"
 )
 
 func findNodes(kind string, object string) error {
@@ -15,12 +15,14 @@ func findNodes(kind string, object string) error {
 	apiResources, err := findApiResource(kind)
 	// Check if kind requests exist
     if err != nil {
-		return fmt.Errorf("Could not find API resources: %w",err)
+		return fmt.Errorf("Could not find API resource: %w",err)
 	}
 	klog.V(3).Infof("found kind %v",kind)
 	
 	objectResource, err := findObjectResource(apiResources[0],object) //api.go
-
-
+	if err != nil {
+		return fmt.Errorf("Could not find API resources: %w",err)
+	}
+	klog.V(3).Infof("obtained api resource: %w", objectResource)
 	return nil
 }

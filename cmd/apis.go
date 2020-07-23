@@ -7,6 +7,7 @@ import (
 	"k8s.io/klog"
 	"k8s.io/apimachinery/pkg/apis/meta/v1"
 	"k8s.io/apimachinery/pkg/runtime/schema"
+	"k8s.io/apimachinery/pkg/apis/meta/v1/unstructured"
 )
 
 func findApiResource(name string) ([]apiResource ,error) {
@@ -41,7 +42,7 @@ func findApiResource(name string) ([]apiResource ,error) {
 	return resources, nil
 }
 
-func objectResource( resource apiResource, objectName string)  error {
+func findObjectResource( resource apiResource, objectName string) (unstructured.Unstructured, error) {
 		// get resource
 
 		//https://godoc.org/k8s.io/client-go/dynamic#Interface
@@ -50,10 +51,10 @@ func objectResource( resource apiResource, objectName string)  error {
 		//https://godoc.org/k8s.io/client-go/dynamic#ResourceInterface
 		object, err := resourceInterface.Get(objectName, v1.GetOptions{})
 		if err != nil {
-			return fmt.Errorf("unable to obtain object resource: %w",err)
+			return nil, fmt.Errorf("unable to obtain object resource: %w",err)
 		}
 		klog.V(3).Infof("successfully obtained object: %v", object)
-		return nil
+		return object, nil
 }
 
 func disAmbiguate(resources []apiResource) []apiResource {
