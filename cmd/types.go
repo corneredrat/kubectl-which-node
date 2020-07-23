@@ -20,6 +20,15 @@ func (r *apiResource) groupVersion() schema.GroupVersion {
 	return  groupVersion
 }
 
+// https://godoc.org/k8s.io/apimachinery/pkg/runtime/schema#GroupVersion
+func (r *apiResource) groupVersionResource() schema.GroupVersion {
+	var groupVersionResource schema.GroupVersionResource
+	groupVersionResource.Group 		= r.group
+	groupVersionResource.Version 	= r.apiVersion
+	groupVersionResource.Resource	= r.resource
+	return  groupVersionResource
+}
+
 func makeAPIResource(resourceList *v1.APIResourceList, resource v1.APIResource) apiResource {
 	var apiResourceElement apiResource
 	apiResourceElement.resource = resource
