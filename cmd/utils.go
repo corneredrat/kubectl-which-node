@@ -62,12 +62,21 @@ func getNamespace() string {
 	return defaultNamespace
 }
 
+func makeAPIResource(resourceList *v1.APIResourceList, resource v1.APIResource) apiResource {
+	var apiResourceElement apiResource
+	apiResourceElement.resource 	= resource
+	apiResourceElement.group		= getGroupVersionFromMetadata(*resourceList)		// utils.go
+	apiResourceElement.apiVersion	= getAPIVersionFromMetadata(*resourceList)		// utils.go
+	apiResourceElement.name			= resource.Name
+	return apiResourceElement
+} 
+
 func getGroupVersionFromMetadata(resource v1.APIResourceList) string {
 	if resource.GroupVersion == "v1" {
 		return "core"
 	} else {
 		groupAPIVersion := resource.GroupVersion
-		return strings.Split(groupAPIVersion, "/")[1]
+		return strings.Split(groupAPIVersion, "/")[0]
 	}
 	
 }
@@ -77,7 +86,7 @@ func  getAPIVersionFromMetadata(resource v1.APIResourceList) string {
 		return "v1"
 	} else {
 		groupAPIVersion := resource.GroupVersion
-		return strings.Split(groupAPIVersion, "/")[0]
+		return strings.Split(groupAPIVersion, "/")[1]
 	}
 	
 }
