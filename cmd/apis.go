@@ -48,7 +48,7 @@ func objectResource( resource apiResource, objectName string)  {
 		//https://godoc.org/k8s.io/client-go/dynamic#NamespaceableResourceInterface
 		resourceInterface := dynamicInterface.Resource(resource.groupVersionResource()).Namespace(getNamespace())
 		//https://godoc.org/k8s.io/client-go/dynamic#ResourceInterface
-		object, err := resourceInterface.Get(objectName, v1.GetOptions )
+		object, err := resourceInterface.Get(objectName, v1.GetOptions{})
 		if err != nil {
 			return fmt.Errorf("unable to obtain object resource: %w",err)
 		}
