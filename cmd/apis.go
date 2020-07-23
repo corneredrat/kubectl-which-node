@@ -3,8 +3,9 @@ package cmd
 import (
 	"fmt" //apiGroup, APIResourcelist
 	"strings"
+	"context"
 	"k8s.io/klog"
-	_ "k8s.io/apimachinery/pkg/apis/meta/v1"
+	"k8s.io/apimachinery/pkg/apis/meta/v1"
 	"k8s.io/apimachinery/pkg/runtime/schema"
 )
 
@@ -40,6 +41,21 @@ func findApiResource(name string) ([]apiResource ,error) {
 	return resources, nil
 }
 
+func objectResource(object string)  {
+		// get resource
+
+		//https://godoc.org/k8s.io/client-go/dynamic#Interface
+		//https://godoc.org/k8s.io/client-go/dynamic#NamespaceableResourceInterface
+		//https://godoc.org/k8s.io/client-go/dynamic#ResourceInterface
+		resource := dynamicInterface.Resource(apiResources[0].groupVersionResource()).Namespace(getNamespace())
+		//https://godoc.org/k8s.io/client-go/dynamic#ResourceInterface
+		object, err := resource.Get(context.TODO, object, v1.GetOptions )
+		if err != nil {
+			return fmt.Errorf("unable to obtain object resource: %w",err)
+		}
+		klog.V(3).Infof("successfully obtained object: %v", object)
+}
+
 func disAmbiguate(resources []apiResource) []apiResource {
 	
 	var unAmbigousResources []apiResource
@@ -47,7 +63,7 @@ func disAmbiguate(resources []apiResource) []apiResource {
 	name = strings.ToLower(name) 
 	switch(name) {
 	case "replicasets": for _,resource := range(resources) {
-		klog.V(3).Infof("DISAMBIGUATION: comparing: %v, apps",resource.getAPIVersion(),  )
+		klog.V(4).Infof("disambiguation: comparing: %v, apps",resource.getAPIVersion(),  )
 		if resource.getAPIVersion() ==  "apps" {
 			return append(unAmbigousResources,resource)
 		}
