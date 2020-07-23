@@ -74,8 +74,10 @@ func findObjectResource( resources []apiResource, objectName string) (*unstructu
 		if !objectFound {
 			return object, fmt.Errorf("unable to find %v in any of api/group version")
 		}
-		klog.V(3).Infof("successfully obtained object: %v", unstructured.Unstructured{})
-		return unstructured.Unstructured{}, nil
+
+		var dummy *unstructured.Unstructured
+		klog.V(3).Infof("successfully obtained object: %v", dummy)
+		return nil, nil
 }
 
 func disAmbiguate(resources []apiResource) []apiResource {
