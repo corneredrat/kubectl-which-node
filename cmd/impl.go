@@ -17,10 +17,10 @@ func findNodes(kind string, object string) error {
 		return fmt.Errorf("Could not find API resources: %w",err)
 	}
 	klog.V(3).Infof("found kind %v",kind)
-	return nil
+	
 
 	// get resource
 	resource := dynamicInterface.Resource(apiResources[0].groupVersionResource()).Namespace(getNamespace())
 	klog.V(3).Infof("resource: %v",resource)
-	
+	return nil
 }
