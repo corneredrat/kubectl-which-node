@@ -1,0 +1,8 @@
+go: finding gopkg.in/yaml.v3 latest
+go: finding golang.org/x/net latest
+go: finding github.com/modern-go/concurrent latest
+go: finding k8s.io/kube-openapi latest
+go: finding github.com/PuerkitoBio/urlesc latest
+# sigs.k8s.io/kustomize/pkg/transformers/config
+../go/pkg/mod/sigs.k8s.io/kustomize@v2.0.3+incompatible/pkg/transformers/config/factorycrd.go:71:47: cannot use api.Schema.SchemaProps.Properties (type spec.SchemaProperties) as type myProperties in argument to looksLikeAk8sType
+

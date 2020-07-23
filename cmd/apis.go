@@ -41,7 +41,7 @@ func findApiResource(name string) ([]apiResource ,error) {
 	return resources, nil
 }
 
-func objectResource( resource apiResource, objectName string)  {
+func objectResource( resource apiResource, objectName string)  error {
 		// get resource
 
 		//https://godoc.org/k8s.io/client-go/dynamic#Interface
@@ -53,6 +53,7 @@ func objectResource( resource apiResource, objectName string)  {
 			return fmt.Errorf("unable to obtain object resource: %w",err)
 		}
 		klog.V(3).Infof("successfully obtained object: %v", object)
+		return nil
 }
 
 func disAmbiguate(resources []apiResource) []apiResource {

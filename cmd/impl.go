@@ -19,7 +19,7 @@ func findNodes(kind string, object string) error {
 	}
 	klog.V(3).Infof("found kind %v",kind)
 	
-	objectResource, err := findObjectResource(apiResources[0],object)
+	objectResource, err := findObjectResource(apiResources[0],object) //api.go
 
 
 	return nil
