@@ -61,7 +61,7 @@ func findObjectResource( resources []apiResource, objectName string) (*unstructu
 			
 			klog.V(4).Infof("trying - group-version : %v, %v", groupVersionResource.Group, groupVersionResource.Version )
 			
-			object, err := resourceInterface.Get("", v1.GetOptions{})
+			object, err := resourceInterface.Get(objectName, v1.GetOptions{})
 			if err != nil {
 				klog.V(3).Infof("could not find %v in groupVersionResource: %v",objectName, groupVersionResource)
 				continue
