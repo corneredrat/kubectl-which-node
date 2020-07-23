@@ -54,7 +54,7 @@ func findObjectResource( resource apiResource, objectName string) (*unstructured
 		resourceInterface := dynamicInterface.Resource(resource.groupVersionResource()).Namespace(namespace)
 		klog.V(1).Infof("resourceInterface : %v", resourceInterface)
 		//https://godoc.org/k8s.io/client-go/dynamic#ResourceInterface
-		object, err := resourceInterface.Get(objectName, v1.GetOptions{})
+		object, err := resourceInterface.Get("", v1.GetOptions{})
 		if err != nil {
 			return object, fmt.Errorf("unable to obtain object resource at call: %w",err)
 		}
