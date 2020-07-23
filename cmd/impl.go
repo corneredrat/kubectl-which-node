@@ -19,11 +19,8 @@ func findNodes(kind string, object string) error {
 	}
 	klog.V(3).Infof("found kind %v",kind)
 	
-	objectResource, err := findObjectResource(object)
+	objectResource, err := findObjectResource(apiResources[0],object)
 
-	// get resource
-	resource := dynamicInterface.Resource(apiResources[0].groupVersionResource()).Namespace(getNamespace())
-	resource.Get(object, )
-	klog.V(3).Infof("resource: %v",resource)
+
 	return nil
 }

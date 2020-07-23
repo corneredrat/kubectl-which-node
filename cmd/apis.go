@@ -3,7 +3,7 @@ package cmd
 import (
 	"fmt" //apiGroup, APIResourcelist
 	"strings"
-	"context"
+	_ "context"
 	"k8s.io/klog"
 	"k8s.io/apimachinery/pkg/apis/meta/v1"
 	"k8s.io/apimachinery/pkg/runtime/schema"
@@ -41,15 +41,14 @@ func findApiResource(name string) ([]apiResource ,error) {
 	return resources, nil
 }
 
-func objectResource(objectName string)  {
+func objectResource( resource apiResource, objectName string)  {
 		// get resource
 
 		//https://godoc.org/k8s.io/client-go/dynamic#Interface
 		//https://godoc.org/k8s.io/client-go/dynamic#NamespaceableResourceInterface
+		resourceInterface := dynamicInterface.Resource(resource.groupVersionResource()).Namespace(getNamespace())
 		//https://godoc.org/k8s.io/client-go/dynamic#ResourceInterface
-		resource := dynamicInterface.Resource(apiResources[0].groupVersionResource()).Namespace(getNamespace())
-		//https://godoc.org/k8s.io/client-go/dynamic#ResourceInterface
-		object, err := resource.Get(objectName, v1.GetOptions )
+		object, err := resourceInterface.Get(objectName, v1.GetOptions )
 		if err != nil {
 			return fmt.Errorf("unable to obtain object resource: %w",err)
 		}
