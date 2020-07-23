@@ -24,6 +24,11 @@ func findApiResource(name string) ([]apiResource ,error) {
 	// Get matching API Resource from the given name
 	resources = getResourceFromList(name, apiResourceLists)
 	klog.V(3).Info(resources)
+	
+	/*
+	Donot Disambiguate. Have all api version, if one doesnt work... try another!
+	For example, some replicasets may be extensions/v1beta1, some may be at core/v1
+
 	if len(resources) > 1 {
 		resources = disAmbiguate(resources) 
 		if len(resources) > 1 {
@@ -36,27 +41,37 @@ func findApiResource(name string) ([]apiResource ,error) {
 		}
 		
 	}
+	*/
 	if len(resources) == 0 {
 		return resources, fmt.Errorf("no matches found for kind %v", name)
 	}
 	return resources, nil
 }
 
-func findObjectResource( resource apiResource, objectName string) (*unstructured.Unstructured, error) {
+func findObjectResource( resources []apiResource, objectName string) (*unstructured.Unstructured, error) {
 		// get resource
 
 		//https://godoc.org/k8s.io/client-go/dynamic#Interface
 		//https://godoc.org/k8s.io/client-go/dynamic#NamespaceableResourceInterface
-		namespace := getNamespace()
-		klog.V(1).Infof("object name: %v", objectName)
-		klog.V(1).Infof("namespace: %v", namespace)
-		klog.V(1).Infof("group-version-resource : %v", resource.groupVersionResource())
-		resourceInterface := dynamicInterface.Resource(resource.groupVersionResource()).Namespace(namespace)
-		klog.V(1).Infof("resourceInterface : %v", resourceInterface)
+		namespace 	:= getNamespace()
+		objectFound := false
+		object 		:= *unstructured.Unstructured
+		for _, resource := range(resources) {
+			groupVersionResource 	:= resource.groupVersionResource()
+			resourceInterface 		:= dynamicInterface.Resource(resource.groupVersionResource()).Namespace(namespace)
+			
+			klog.V(4).Infof("trying - group-version-resource : %v", )
+			
+			object, err := resourceInterface.Get("", v1.GetOptions{})
+			if err != nil {
+				klog.V(3).Infof("could not find %v in groupVersionResource: %v",objectName, groupVersionResource)
+				continue
+			}
+			objectFound = true
+		}
 		//https://godoc.org/k8s.io/client-go/dynamic#ResourceInterface
-		object, err := resourceInterface.Get("", v1.GetOptions{})
-		if err != nil {
-			return object, fmt.Errorf("unable to obtain object resource at call: %w",err)
+		if !objectFound {
+			return object, fmt.Errorf("unable to find %v in any of api/group version")
 		}
 		klog.V(3).Infof("successfully obtained object: %v", object)
 		return object, nil
