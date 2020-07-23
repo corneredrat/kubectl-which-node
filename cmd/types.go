@@ -15,16 +15,16 @@ type apiResource struct {
 // https://godoc.org/k8s.io/apimachinery/pkg/runtime/schema#GroupVersion
 func (r *apiResource) groupVersion() schema.GroupVersion {
 	var groupVersion schema.GroupVersion
-	groupVersion.Group 		= r.apiVersion
-	groupVersion.Version 	= r.group
+	groupVersion.Group 		= r.group
+	groupVersion.Version 	= r.apiVersion
 	return  groupVersion
 }
 
 // https://godoc.org/k8s.io/apimachinery/pkg/runtime/schema#GroupVersion
 func (r *apiResource) groupVersionResource() schema.GroupVersionResource {
 	var groupVersionResource schema.GroupVersionResource
-	groupVersionResource.Group 		= r.apiVersion
-	groupVersionResource.Version 	= r.group
+	groupVersionResource.Group 		= r.group
+	groupVersionResource.Version 	= r.apiVersion
 	groupVersionResource.Resource	= r.name
 	return  groupVersionResource
 }

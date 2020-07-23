@@ -59,7 +59,7 @@ func findObjectResource( resources []apiResource, objectName string) (*unstructu
 			groupVersionResource 	:= resource.groupVersionResource()
 			resourceInterface 		:= dynamicInterface.Resource(resource.groupVersionResource()).Namespace(namespace)
 			
-			klog.V(4).Infof("trying - group-version-resource : %v", groupVersionResource )
+			klog.V(4).Infof("trying - group-version : %v, %v", groupVersionResource.Group, groupVersionResource.Version )
 			
 			object, err := resourceInterface.Get("", v1.GetOptions{})
 			if err != nil {
