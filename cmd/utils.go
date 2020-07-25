@@ -73,7 +73,7 @@ func makeAPIResource(resourceList *v1.APIResourceList, resource v1.APIResource) 
 
 func getGroupVersionFromMetadata(resource v1.APIResourceList) string {
 	if resource.GroupVersion == "v1" {
-		return "core"
+		return ""
 	} else {
 		groupAPIVersion := resource.GroupVersion
 		return strings.Split(groupAPIVersion, "/")[0]
