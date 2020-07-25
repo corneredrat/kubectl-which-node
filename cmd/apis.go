@@ -100,7 +100,7 @@ func findPodAndNode(objectResource *unstructured.Unstructured) (map[string]strin
 func getNodeFromPod(podResource *unstructured.Unstructured) (map[string]string, error) {
 	var podNodeMap 	map [string]string
 	podName			:= podResource.GetName()
-	podInterface	:= dynamicInterface.CoreV1().PodsGetter.Pods(getNamespace())
+	podInterface	:= clientSet.CoreV1().PodsGetter.Pods(getNamespace())
 	//podInterface 	:= corev1.CoreV1Client.Pods(getNamespace())
 	podObject		:= podInterface(podName,v1.GetOptions{})
 	podNodeMap[podName]	= podObject.PodSpec.NodeName

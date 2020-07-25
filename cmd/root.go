@@ -27,6 +27,7 @@ import (
 	_ 	"k8s.io/apimachinery/pkg/apis/meta/v1"
 	"k8s.io/cli-runtime/pkg/genericclioptions"
 	"k8s.io/client-go/dynamic"
+	"k8s.io/client-go/kubernetes"
 	"k8s.io/client-go/discovery"
 	_ "k8s.io/client-go/plugin/pkg/client/auth"
 	"k8s.io/klog"
@@ -34,6 +35,7 @@ import (
 
 var (
 	cfgFile          string
+	clientSet		 *kubernetes.Clientset
 	configFlags      *genericclioptions.ConfigFlags
 	dynamicInterface dynamic.Interface                // https://godoc.org/k8s.io/client-go/dynamic#Interface
 	discoveryClient  discovery.CachedDiscoveryInterface // https://godoc.org/k8s.io/client-go/discovery#CachedDiscoveryInterface
@@ -61,6 +63,11 @@ func run(command *cobra.Command, args []string) error {
 	}
 	klog.V(2).Info("obtained restConfig")
 
+	// https://godoc.org/k8s.io/client-go/kubernetes#NewForConfig
+	clientSet, err = kubernetes.NewForConfig(restConfig)
+	if err != nil {
+		return fmt.Errorf("unable to get clientSet from Given restConfig: %w", err)
+	}
 	//https://godoc.org/k8s.io/client-go/dynamic#NewForConfig
 	// Used get Resource Interface for Objects
 	dynamicInterface, err = dynamic.NewForConfig(restConfig)
