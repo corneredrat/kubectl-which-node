@@ -102,7 +102,7 @@ func getNodeFromPod(podResource *unstructured.Unstructured) (map[string]string, 
 	var coreV1Interface	corev1.CoreV1Interface
 	podName			:= podResource.GetName()
 	coreV1Interface	=  clientSet.CoreV1()
-	podInterface	:= coreV1Interface.PodsGetter.Pods(getNamespace())
+	podGetter		:= coreV1Interface.PodsGetter
 	//podInterface 	:= corev1.CoreV1Client.Pods(getNamespace())
 	podObject		:= podInterface(podName,v1.GetOptions{})
 	podNodeMap[podName]	= podObject.PodSpec.NodeName
