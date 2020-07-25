@@ -74,7 +74,7 @@ func findObjectResource( resources []apiResource, objectName string) (*unstructu
 		//https://godoc.org/k8s.io/client-go/dynamic#ResourceInterface
 		var dummy *unstructured.Unstructured
 		if !objectFound {
-			return dummy, fmt.Errorf("unable to find %v in any of api/group version")
+			return dummy, fmt.Errorf("unable to find %v in any of api/group version", objectName)
 		}
 		klog.V(3).Infof("successfully obtained object: %v", dummy)
 		return nil, nil
