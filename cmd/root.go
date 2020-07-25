@@ -45,7 +45,7 @@ var rootCmd = &cobra.Command{
 	Short: "Displays node(s) in which the object(s) is deployed on.",
 	Example: "	kubectl which node pod my-app\n" +
 		"	kubectl which node replicaSet my-rs",
-	//Args: cobra.MinimumNArgs(2),
+	Args: cobra.MinimumNArgs(2),
 	RunE: run,
 	// Uncomment the following line if your bare application
 	// has an action associated with it:
