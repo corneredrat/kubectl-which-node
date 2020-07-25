@@ -82,7 +82,7 @@ func findObjectResource( resources []apiResource, objectName string) (*unstructu
 
 func findPodAndNode(objectResource *unstructured.Unstructured) (map[string]string , error) {
 	var podToNodeMap map[string]string
-	klog.V(2).Infof("object : %v",objectResource.UnstructuredContent()["spec"])
+	klog.V(2).Infof("object : %v",objectResource.UnstructuredContent()["spec"]["selectors"]["matchLabels"])
 	return podToNodeMap, nil
 }
 
@@ -93,7 +93,7 @@ func disAmbiguate(resources []apiResource) []apiResource {
 	name = strings.ToLower(name) 
 	switch(name) {
 	case "replicasets": for _,resource := range(resources) {
-		klog.V(4).Infof("disambiguation: comparing: %v, apps",resource.getAPIVersion(),  )
+		klog.V(4).Infof("disambiguation: comparing: %v, apps",resource.getAPIVersion() )
 		if resource.getAPIVersion() ==  "apps" {
 			return append(unAmbigousResources,resource)
 		}
