@@ -8,6 +8,7 @@ import (
 	"k8s.io/apimachinery/pkg/apis/meta/v1"
 	_ "k8s.io/apimachinery/pkg/runtime/schema"
 	"k8s.io/apimachinery/pkg/apis/meta/v1/unstructured"
+	corev1 "k8s.io/client-go/kubernetes/typed/core/v1"
 )
 
 func findApiResource(name string) ([]apiResource ,error) {
@@ -27,7 +28,7 @@ func findApiResource(name string) ([]apiResource ,error) {
 	
 	/*
 	Donot Disambiguate. Have all api version, if one doesnt work... try another!
-	For example, some replicasets may be extensions/v1beta1, some may be at core/v1
+	For example, some replicasets may be extensions/v1beta1, some may be at apps/v1
 
 	if len(resources) > 1 {
 		resources = disAmbiguate(resources) 
@@ -84,11 +85,26 @@ func findPodAndNode(objectResource *unstructured.Unstructured) (map[string]strin
 	var podToNodeMap 	map[string]string
 	var temp 			map[string]interface{}
 	var labels 			map[string]interface{}
+	
+	if objectResource.Kind() == "Pod" {
+		return getNodeFromPod(objectResource)
+	} 
+	
 	temp 	= objectResource.UnstructuredContent()["spec"].(map[string]interface{})
 	temp	= temp["selector"].(map[string]interface{})
 	labels 	= temp["matchLabels"].(map[string]interface{})
 	klog.V(2).Infof("object : %v",labels)
 	return podToNodeMap, nil
+}
+
+func getNodeFromPod(podResource) (map[string]string, error) {
+	var podNodeMap 	map [string]string
+	podName			:= podResource.getName()
+	podInterface 	:= corev1.CoreV1Client.Pods(getNamespace())
+	podObject		:= podInterface(podName,v1.GetOptions{})
+	podNodeMap[podName]	:= podObject.PodSpec.NodeName
+	klog.V(2).Infof("constructed pod-node map: %v",podNodeMap)
+	return podNodeMap, nil
 }
 
 func disAmbiguate(resources []apiResource) []apiResource {
