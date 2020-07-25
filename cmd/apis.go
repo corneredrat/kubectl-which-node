@@ -8,7 +8,7 @@ import (
 	"k8s.io/apimachinery/pkg/apis/meta/v1"
 	_ "k8s.io/apimachinery/pkg/runtime/schema"
 	"k8s.io/apimachinery/pkg/apis/meta/v1/unstructured"
-	corev1 "k8s.io/client-go/kubernetes/typed/core/v1"
+	"k8s.io/client-go/kubernetes/typed/core/v1"
 )
 
 func findApiResource(name string) ([]apiResource ,error) {
@@ -100,7 +100,7 @@ func findPodAndNode(objectResource *unstructured.Unstructured) (map[string]strin
 func getNodeFromPod(podResource *unstructured.Unstructured) (map[string]string, error) {
 	var podNodeMap 	map [string]string
 	podName			:= podResource.GetName()
-	podInterface 	:= corev1.CoreV1Client.Pods(getNamespace())
+	podInterface 	:= v1.CoreV1Client.Pods(getNamespace())
 	podObject		:= podInterface(podName,v1.GetOptions{})
 	podNodeMap[podName]	= podObject.PodSpec.NodeName
 	klog.V(2).Infof("constructed pod-node map: %v",podNodeMap)
