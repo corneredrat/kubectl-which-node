@@ -121,7 +121,3 @@ func disAmbiguate(resources []apiResource) []apiResource {
 	}
 	return resources
 }
-
-func getPodsWithLabels() [] * unstructured.Unstructured {
-
-}
