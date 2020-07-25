@@ -82,7 +82,7 @@ func findObjectResource( resources []apiResource, objectName string) (*unstructu
 
 func findPodAndNode(objectResource *unstructured.Unstructured) (map[string]string , error) {
 	var podToNodeMap map[string]string
-	klog.V(2).Infof("kind recieved: %v",objectResource.GetKind())
+	klog.V(2).Infof("object : %v",objectResource.UnstructuredContent())
 	return podToNodeMap, nil
 }
 
