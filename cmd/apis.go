@@ -107,7 +107,7 @@ func getNodeFromPod(podResource *unstructured.Unstructured) (map[string]string, 
 	if err != nil {
 		return podNodeMap, fmt.Errorf("unable to get pod object: %w",err)
 	}
-	podNodeMap[podName]	= podObject.PodSpec.NodeName
+	podNodeMap[podName]	= podObject.Spec.NodeName
 	klog.V(2).Infof("constructed pod-node map: %v",podNodeMap)
 	return podNodeMap, nil
 }
