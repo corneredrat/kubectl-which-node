@@ -86,7 +86,7 @@ func findPodAndNode(objectResource *unstructured.Unstructured) (map[string]strin
 	var temp 			map[string]interface{}
 	var labels 			map[string]interface{}
 	
-	if objectResource.Kind() == "Pod" {
+	if objectResource.GetKind() == "Pod" {
 		return getNodeFromPod(objectResource)
 	} 
 	
@@ -97,12 +97,12 @@ func findPodAndNode(objectResource *unstructured.Unstructured) (map[string]strin
 	return podToNodeMap, nil
 }
 
-func getNodeFromPod(podResource) (map[string]string, error) {
+func getNodeFromPod(podResource *unstructured.Unstructured) (map[string]string, error) {
 	var podNodeMap 	map [string]string
 	podName			:= podResource.getName()
 	podInterface 	:= corev1.CoreV1Client.Pods(getNamespace())
 	podObject		:= podInterface(podName,v1.GetOptions{})
-	podNodeMap[podName]	:= podObject.PodSpec.NodeName
+	podNodeMap[podName]	= podObject.PodSpec.NodeName
 	klog.V(2).Infof("constructed pod-node map: %v",podNodeMap)
 	return podNodeMap, nil
 }
