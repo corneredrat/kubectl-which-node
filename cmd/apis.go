@@ -102,9 +102,7 @@ func getNodeFromPod(podResource *unstructured.Unstructured) (map[string]string, 
 	var coreV1Interface	corev1.CoreV1Interface
 	podName			:= podResource.GetName()
 	coreV1Interface	=  clientSet.CoreV1()
-	podGetter		:= coreV1Interface.Pods(getNamespace())
-	//podInterface 	:= corev1.CoreV1Client.Pods(getNamespace())
-	podObject		:= podInterface(podName,v1.GetOptions{})
+	podObject		:= coreV1Interface.Pods(getNamespace())
 	podNodeMap[podName]	= podObject.PodSpec.NodeName
 	klog.V(2).Infof("constructed pod-node map: %v",podNodeMap)
 	return podNodeMap, nil
