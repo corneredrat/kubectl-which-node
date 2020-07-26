@@ -19,7 +19,7 @@ echo "Building binary"
 go build -mod=vendor -v main.go
 if [ $? != 0 ]; then
   echo "Build failed, exiting."
-  echo "contact raghunandankst@gmail.com for support."
+  echo "If problem persists, raise an issue at : https://github.com/corneredrat/kubectl-which-node/issues"
   exit
 fi
 
