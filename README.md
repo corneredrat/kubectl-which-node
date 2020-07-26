@@ -15,7 +15,13 @@ Usage:
 ### Examples:
 
 To display which nodes a daemonset is deployed in:
+![daemonset-example](assets/images/example-daemonset.PNG)
 
+To display which nodes a deployment is deployed in:
+![daemonset-example](assets/images/example-deployment.PNG)
+
+To display which nodes a daemonset is deployed in:
+![daemonset-example](assets/images/example-pod.PNG)
 ## Installation
 ```
 # Get the binary
