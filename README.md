@@ -9,8 +9,9 @@ The command also supports relavent native kubectl flags.
 Displays node(s) in which the object(s) is deployed on.
 
 Usage:
-  kubectl which node <kind> <name> [flags]
-
+```
+  kubectl which node [kind] [name] [flags]
+```
 ### Examples:
 
 To display which nodes a daemonset is deployed in:
