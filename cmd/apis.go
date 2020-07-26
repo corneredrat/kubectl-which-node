@@ -98,8 +98,8 @@ func findPodAndNode(objectResource *unstructured.Unstructured) (map[string]strin
 	
 	klog.V(2).Infof("object : %v",labels)
 	
-	for _, label := range(labels) {
-		klog.Infof("label: %v",label)
+	for key, value := range(labels) {
+		klog.Infof("label: %v-%v",key, value)
 	}
 	return podToNodeMap, nil
 }
