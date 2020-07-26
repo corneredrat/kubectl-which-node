@@ -82,13 +82,13 @@ func findObjectResource( resources []apiResource, objectName string) (*unstructu
 }
 
 func findPodAndNode(objectResource *unstructured.Unstructured) (map[string]string , error) {
-	var podToNodeMap 	map[string]string
+	var podNodeMap 		map[string]string
 	var temp 			map[string]interface{}
 	var labels 			map[string]interface{}
 	var labelSelector	string
 	
 	if objectResource.GetKind() == "Pod" {
-		return getNodeFromPod(objectResource)
+		return getNodeFromPod(objectResource.GetName())
 	} 
 	
 	temp 			= objectResource.UnstructuredContent()["spec"].(map[string]interface{})
@@ -102,17 +102,20 @@ func findPodAndNode(objectResource *unstructured.Unstructured) (map[string]strin
 		if labelSelector != "" {
 			labelSelector = labelSelector + ","
 		}
-		labelSelector = labelSelector + key + "="+value.(string)
-		
+		labelSelector = labelSelector + key + "="+value.(string)		
 	}
-	klog.Infof("constructed label selector: %v", labelSelector)
+	podNodeMap, err = getPodNodeMap(labelSelector)
+	if err != nil {
+		return podNodeMap, fmt.Errorf("unable to obtain pod and node mapping for selectors %v, reason: ",labelSelector, err)
+	}
+
+	klog.Infof("constructed podNodeMap: %v", podNodeMap)
 	return podToNodeMap, nil
 }
 
-func getNodeFromPod(podResource *unstructured.Unstructured) (map[string]string, error) {
+func getNodeFromPod(podName string) (map[string]string, error) {
 	podNodeMap 		:= make(map [string]string)
 	var coreV1Interface	corev1.CoreV1Interface
-	podName			:= podResource.GetName()
 	coreV1Interface	=  clientSet.CoreV1()
 	podInterface	:= coreV1Interface.Pods(getNamespace())
 	podObject, err	:= podInterface.Get(podName, v1.GetOptions{}) 
@@ -121,6 +124,21 @@ func getNodeFromPod(podResource *unstructured.Unstructured) (map[string]string, 
 	}
 	podNodeMap[podName]	= podObject.Spec.NodeName
 	klog.V(2).Infof("constructed pod-node map: %v",podNodeMap)
+	return podNodeMap, nil
+}
+
+func getPodNodeMap(labelSelectors string) (map[string]string, error) {
+	podNodeMap 		:= make(map [string]string)
+	coreV1Interface	:= clientSet.CoreV1()
+	podList, err	:= coreV1Interface.Pods("").List(metav1.ListOptions{
+		LabelSelector: labelSelectors
+	})
+	if err != nil {
+		return podNodeMap, fmt.Errorf("unable to get list of pods from selectors: %w",err)
+	}
+	for _, pod := range(podList.Items) {
+		podNodeMap[pod.Name] = pod.Spec.NodeName
+	}
 	return podNodeMap, nil
 }
 
