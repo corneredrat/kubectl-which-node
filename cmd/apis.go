@@ -102,7 +102,7 @@ func findPodAndNode(objectResource *unstructured.Unstructured) (map[string]strin
 		if labelSelector != "" {
 			labelSelector = labelSelector + ","
 		}
-		labelSelector = labelSelector + key + "="+value
+		labelSelector = labelSelector + key + "="+value.(string)
 		
 	}
 	klog.Infof("constructed label selector: %v", labelSelector)
