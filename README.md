@@ -1,5 +1,14 @@
 # kubectl-which-node
 
+## Contents
+- Description
+- Usage
+- Examples
+- Installation
+- Build from source
+
+## Description
+
 This command display the kubernetes nodes in which a workload controller is deployed in. Workload controller can be `replicaset`, `daemonset` , `deployment` or any other standard controller.
 
 All shortforms that kubernetes api server support , such as `rs` for `replicaset` , `ds` for `daemonset` is supported by the command.
@@ -14,13 +23,18 @@ Usage:
 ```
 ### Examples:
 
-To display which nodes a daemonset is deployed in:
+To display which nodes a `daemonset` is deployed in:
+
 ![daemonset-example](assets/images/example-daemonset.PNG)
 
-To display which nodes a deployment is deployed in:
+
+To display which nodes a `deployment` is deployed in:
+
 ![daemonset-example](assets/images/example-deployment.PNG)
 
-To display which nodes a daemonset is deployed in:
+
+To display which nodes a `pod` is deployed in:
+
 ![daemonset-example](assets/images/example-pod.PNG)
 ## Installation
 ```
