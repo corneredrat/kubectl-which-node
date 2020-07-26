@@ -81,7 +81,7 @@ func findObjectResource( resources []apiResource, objectName string) (*unstructu
 		return nil, nil
 }
 
-func findPodAndNode(objectResource *unstructured.Unstructured) (map[string]string , error) {
+func findPodNodeMapping(objectResource *unstructured.Unstructured) (map[string]string , error) {
 	var podNodeMap 		map[string]string
 	var temp 			map[string]interface{}
 	var labels 			map[string]interface{}
@@ -109,7 +109,7 @@ func findPodAndNode(objectResource *unstructured.Unstructured) (map[string]strin
 		return podNodeMap, fmt.Errorf("unable to obtain pod and node mapping for selectors %v, reason: ",labelSelector, err)
 	}
 
-	klog.Infof("constructed podNodeMap: %v", podNodeMap)
+	klog.V(2).Infof("constructed podNodeMap: %v", podNodeMap)
 	return podNodeMap, nil
 }
 

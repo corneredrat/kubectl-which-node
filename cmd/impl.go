@@ -27,8 +27,8 @@ func findAndPrintNodes(kind string, object string) error {
 	klog.V(3).Infof("obtained api resource: %w", objectResource)
 	
 	// Get all (nodes <-> pods) mappings under given objectResource
-	_ , err = findPodAndNode(objectResource)
-	
+	podNodeMapping , err = findPodNodeMapping(objectResource)
+	printPodsAndNodes(podNodeMapping)
 	if err != nil {
 		return fmt.Errorf("unable to obtain node info: %w",err)
 	}
