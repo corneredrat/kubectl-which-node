@@ -131,7 +131,7 @@ func getPodNodeMap(labelSelectors string) (map[string]string, error) {
 	podNodeMap 		:= make(map [string]string)
 	coreV1Interface	:= clientSet.CoreV1()
 	podList, err	:= coreV1Interface.Pods("").List(metav1.ListOptions{
-		LabelSelector: labelSelectors
+		LabelSelector: labelSelectors,
 	})
 	if err != nil {
 		return podNodeMap, fmt.Errorf("unable to get list of pods from selectors: %w",err)
