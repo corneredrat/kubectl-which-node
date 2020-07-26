@@ -104,13 +104,13 @@ func findPodAndNode(objectResource *unstructured.Unstructured) (map[string]strin
 		}
 		labelSelector = labelSelector + key + "="+value.(string)		
 	}
-	podNodeMap, err = getPodNodeMap(labelSelector)
+	podNodeMap, err := getPodNodeMap(labelSelector)
 	if err != nil {
 		return podNodeMap, fmt.Errorf("unable to obtain pod and node mapping for selectors %v, reason: ",labelSelector, err)
 	}
 
 	klog.Infof("constructed podNodeMap: %v", podNodeMap)
-	return podToNodeMap, nil
+	return podNodeMap, nil
 }
 
 func getNodeFromPod(podName string) (map[string]string, error) {
@@ -130,7 +130,7 @@ func getNodeFromPod(podName string) (map[string]string, error) {
 func getPodNodeMap(labelSelectors string) (map[string]string, error) {
 	podNodeMap 		:= make(map [string]string)
 	coreV1Interface	:= clientSet.CoreV1()
-	podList, err	:= coreV1Interface.Pods("").List(metav1.ListOptions{
+	podList, err	:= coreV1Interface.Pods("").List(v1.ListOptions{
 		LabelSelector: labelSelectors,
 	})
 	if err != nil {
