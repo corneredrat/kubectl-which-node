@@ -85,7 +85,7 @@ func findPodAndNode(objectResource *unstructured.Unstructured) (map[string]strin
 	var podToNodeMap 	map[string]string
 	var temp 			map[string]interface{}
 	var labels 			map[string]interface{}
-	//var labelSelector	string
+	var labelSelector	string
 	
 	if objectResource.GetKind() == "Pod" {
 		return getNodeFromPod(objectResource)
@@ -94,13 +94,18 @@ func findPodAndNode(objectResource *unstructured.Unstructured) (map[string]strin
 	temp 			= objectResource.UnstructuredContent()["spec"].(map[string]interface{})
 	temp			= temp["selector"].(map[string]interface{})
 	labels 			= temp["matchLabels"].(map[string]interface{})
-	//labelSelector 	= ""
+	labelSelector 	= ""
 	
 	klog.V(2).Infof("object : %v",labels)
 	
 	for key, value := range(labels) {
-		klog.Infof("label: %v-%v",key, value)
+		if labelSelector != "" {
+			labelSelector = labelSelector + ","
+		}
+		labelSelector = labelSelector + key + "="+value
+		
 	}
+	klog.Infof("constructed label selector: %v", labelSelector)
 	return podToNodeMap, nil
 }
 
