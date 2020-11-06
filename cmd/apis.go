@@ -18,8 +18,12 @@ func findApiResource(name string) ([]apiResource ,error) {
 	//https://godoc.org/k8s.io/client-go/discovery#CachedDiscoveryInterface
 	klog.V(3).Info("fetching Resources lists from Kubernetes server")
 	apiResourceLists, err := discoveryClient.ServerPreferredResources()
-	if err != nil {
-		return resources, fmt.Errorf("unable to fetch api resource list: %w")
+        if ( err.Error() == "unable to retrieve the complete list of server APIs: external.metrics.k8s.io/v1beta1: the server is currently unable to handle the request" ) {
+		//no worries , other resources wouldve been cached.
+		klog.V(3).Info("Not all resources were cached")
+        } else if err != nil {
+                //fmt.Println("%v",apiResourceLists)
+		return resources, fmt.Errorf("unable to fetch api resource list: %v", err.Error())
 	}
 	
 	// Get matching API Resource from the given name

@@ -24,5 +24,6 @@ if [ $? != 0 ]; then
 fi
 
 echo "Installing"
+sudo cp main  ./bin/kubectl-which-node
 sudo mv main /usr/bin/kubectl-which-node
 echo "...Done."
